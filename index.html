@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>OGUN OSUN HIERACHY</title>
+    <style>
+      :root {
+        --color-primary: #6495ed;
+        --color-secondary: #e9967a;
+        --color-tertiary: #e3b064;
+        --color-lines: slategrey;
+        --color-background: #ffffff;
+        --color-dark: #000000;
+        --color-header: #008000;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        text-decoration: none;
+        border: none;
+        outline: none;
+      }
+      body {
+        background-color: var(--color-background);
+      }
+      header {
+        height: 60px;
+        width: 100%;
+        background-color: var(--color-header);
+      }
+      .hierachy {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+      }
+      /* top tier */
+      .hierachy .top-tier {
+        width: auto;
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .anchor,
+      .hierachy .top-tier li {
+        font-weight: 500;
+        font-size: 15px;
+        font-family: sans-serif;
+        color: var(--color-dark);
+        width: auto;
+        height: auto;
+        padding: 5px 30px;
+        text-align: center;
+        border-radius: 10px;
+        background-color: var(--color-secondary);
+        transition: 0.8s;
+      }
+      .hierachy .top-tier li {
+        background-color: var(--color-primary);
+      }
+      .hierachy .top-tier li:hover,
+      .anchor:hover {
+        transform: scale(1.04);
+        transition: 0.1s;
+        border-radius: 10px;
+        transition-timing-function: ease-in-out;
+      }
+      /*link lines */
+      .v-line {
+        transform: rotateX("90deg");
+        width: 3px;
+        height: 15px;
+        background-color: var(--color-lines);
+      }
+      .h-line {
+        width: 100%;
+        height: 3px;
+        background-color: var(--color-lines);
+      }
+      .h-line::after {
+        content: " ";
+        width: 163px;
+        height: 21px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: -10px;
+        background-color: var(--color-background);
+      }
+      .h-line::before {
+        content: " ";
+        width: 141.5px;
+        height: 21px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        background-color: var(--color-background);
+      }
+      .s-line {
+        width: 15px;
+        height: 3px;
+        background-color: var(--color-lines);
+      }
+      /* Department and its Divisions */
+      .hierachy .departments {
+        width: 100%;
+        display: flex;
+        list-style: none;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .hierachy .departments li div {
+        width: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .hierachy .departments li div a {
+        border-bottom-left-radius: 0;
+      }
+      .hierachy .departments li .division {
+        padding-top: 5px;
+        border-left: 3px solid var(--color-lines);
+        position: relative;
+      }
+      .hierachy .departments li .division::after {
+        content: " ";
+        width: 10px;
+        height: 12.2px;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+        background-color: var(--color-background);
+      }
+      .hierachy .departments li .division li {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+      }
+      .hierachy .departments li .division li a {
+        background-color: var(--color-tertiary);
+      }
+      /* pop note */
+      .hierachy .pop-note {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+      }
+      .hierachy .pop-note .empty {
+        width: 50%;
+        visibility: hidden;
+        height: auto;
+        place-self: middle;
+      }
+      .hierachy .pop-note .note {
+        width: 50%;
+        display: flex;
+        align-items: center;
+      }
+      .hierachy .pop-note .note ol {
+        width: auto;
+        height: auto;
+        float: right;
+        list-style-type: square;
+        border-radius: 10px;
+        padding: 10px 30px;
+        margin: 20px 0;
+        font-size: 15px;
+        color: var(--color-dark);
+        font-family: sans-serif;
+        background-color: var(--color-tertiary);
+      }
+      .hierachy .pop-note .note ol li a {
+        color: var(--color-dark);
+      }
+
+      @media screen and (max-width: 767px) {
+        .anchor,
+        .hierachy .top-tier li {
+          width: 100%;
+        }
+        .tree {
+          display: flex;
+        }
+        .hierachy span {
+          width: 17px;
+          height: auto;
+          border-bottom: 3px solid gray;
+        }
+        .v-line {
+          transform: rotateX("-90deg");
+        }
+        .h-line {
+          width: 3px;
+          height: auto;
+          background-color: var(--color-lines);
+        }
+        .h-line::after {
+          content: " ";
+          width: 163px;
+          height: 148px;
+          display: block;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-color: var(--color-background);
+        }
+        .h-line::before {
+          display: none;
+        }
+        .hierachy .departments {
+          width: 100%;
+          flex-direction: column;
+        }
+        .hierachy .departments li div {
+          flex-direction: row;
+        }
+        .hierachy .departments li .division {
+          margin-left: 20px;
+        }
+        .hierachy .departments li div hr {
+          width: 20px;
+          height: 3px;
+          transform: rotateX("90deg");
+          background-color: var(--color-lines);
+        }
+        .hierachy .pop-note .empty {
+          visibility: visible;
+          display: none;
+        }
+        .hierachy .pop-note .note {
+          width: 90%;
+        }
+        .hierachy .departments li div {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <div class="hierachy">
+      <!-- top tier -->
+      <ul class="top-tier">
+        <li><a href="#" style="color: #000000">Honorable Minister</a></li>
+        <hr class="v-line" />
+        <li><a href="#" style="color: #000000">Permanent Secretary</a></li>
+        <hr class="v-line" />
+        <li><a href="#" style="color: #000000">Board of Directors</a></li>
+        <hr class="v-line" />
+        <li><a href="#" style="color: #000000">Managing Director</a></li>
+      </ul>
+      <!-- pop note -->
+      <div class="pop-note">
+        <div class="empty"></div>
+        <hr class="v-line" style="height: auto" />
+        <div class="note">
+          <hr class="s-line" />
+          <ol>
+            <p style="font-weight: bolder">Units:</p>
+            <li><a href="#">Legal Secretary to the Board</a></li>
+            <li><a href="#">Internal Audit</a></li>
+            <li><a href="#">Procurement</a></li>
+            <li><a href="#">Public Relations & Protocol</a></li>
+            <li><a href="#">Division/State Offices</a></li>
+          </ol>
+        </div>
+      </div>
+      <span></span>
+      <div class="tree">
+        <hr class="h-line" />
+
+        <ul class="departments">
+          <!-- Planning & Design Department and its Divisions -->
+          <li>
+            <div class="">
+              <hr class="v-line" />
+              <a style="place-self: start" href="#" class="anchor"
+                >Planning & Design Department</a
+              >
+            </div>
+            <ul class="division">
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Planning division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Design division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">ICT division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Investigation division</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Engineering Department and its Divisions -->
+          <li>
+            <div class="">
+              <hr class="v-line" />
+              <a style="place-self: start" href="#" class="anchor"
+                >Engineering Department</a
+              >
+            </div>
+            <ul class="division">
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Construction division </a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Operation & Maintainance division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Hydrogeology division</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Agric Science Department and its Divisions -->
+          <li>
+            <div class="">
+              <hr class="v-line" />
+              <a style="place-self: start" href="#" class="anchor"
+                >Agric Science Department</a
+              >
+            </div>
+            <ul class="division">
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Agric division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Commercial division</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Finance & Administration Department and its divisions -->
+          <li>
+            <div class="">
+              <hr class="v-line" />
+              <a style="place-self: start" href="#" class="anchor"
+                >Finance & Administration Department</a
+              >
+            </div>
+            <ul class="division">
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Administration division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Finance & Accounts division</a>
+              </li>
+              <li>
+                <hr class="s-line" />
+                <a href="#" class="anchor">Stores division</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
